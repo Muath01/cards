@@ -21,8 +21,5 @@
     <ClCompile Include="cardlib.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

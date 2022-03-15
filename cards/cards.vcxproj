@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="cards.cpp" />
     <ClCompile Include="cardlib.h" />
-    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

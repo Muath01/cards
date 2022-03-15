@@ -1,5 +1,7 @@
 #include <iostream>
 #include "cardlib.h"
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 aCard getCard(string stdno)
@@ -26,41 +28,58 @@ string cardToString(aCard c) {
     result = value + suit;
 
     return result;
-
 }
 
 
+// H < C < D < S
 
-const int maxCard = 3;
 
-aCard thePack[maxCard];
 
 void printPack(string mess, aCard pack[], int numOfCard) {
-
 
     string result = mess + ": ";
     string card;
 
-
-    for (int i = 0; i < numOfCard; i++) {
+    for (int i = numOfCard -1; i > 0; i--) {
 
         card = cardToString(pack[i]);
-        result += card + ", ";
+        if (i>1) result += card + ", ";
     }
-    cout << result;
 
+    cout << result << endl;
+}
+
+int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
+
+    if (c1.cardSuit == c2.cardSuit) { // checks if suits(enum) are equal
+        if (c1.cardVal > c2.cardVal) { // if suits are equal, but the value of c1 is higher than c1, func return -1. 
+            return -1;
+        }
+        else if (c1.cardVal == c2.cardVal) { //checks if the value of c1 and c2 are equal, and if yes, returns 0.
+            return 0;
+        }
+        else{ // Only one case is left, which is if c2 value is bigger than c1
+            return 1; // if yes, it return 1. 
+        }
+    }
+    else { // If the suits are different, then the two cards can never be equal. 
+        if (c1.cardSuit > c1.cardSuit) {//checks the value of suit in the enum, and if c1 suit is bigger it return -1. 
+            return -1; 
+        }
+        else { // Becuase they can't be equal, else means c2's suit's is bigger than c1's, if so, it returns 1. 
+            return 1;
+        }
+    }
 }
 
 
-//int main()
-{
-    aCard one;
-    one.cardSuit = spades;
-    one.cardVal = 5;
+const int maxCard = 6;
 
+aCard thePack[maxCard];
 
-
-
+int main(){
+    
+    
     for (int ct = 0; ct < maxCard; ct++)
         thePack[ct] = getCard("28014355");
 
