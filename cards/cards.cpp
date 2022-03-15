@@ -49,14 +49,7 @@ void printPack(string mess, aCard pack[], int numOfCard) {
 
     cout << result << endl;
 
-   /* for (int i = numOfCard-1; i > 0; i--) {
-
-        card = cardToString(pack[i]);
-        result += card;
-        if (i>1) result +=  ", ";
-    }
-
-    cout << result << endl;*/
+  
 }
 
 int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
@@ -73,7 +66,7 @@ int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
         }
     }
     else { // If the suits are different, then the two cards can never be equal. 
-        if (c1.cardSuit > c1.cardSuit) {//checks the value of suit in the enum, and if c1 suit is bigger it return -1. 
+        if (c1.cardSuit > c2.cardSuit) {//checks the value of suit in the enum, and if c1 suit is bigger it return -1. 
             return -1; 
         }
         else { // Becuase they can't be equal, else means c2's suit's is bigger than c1's, if so, it returns 1. 
@@ -82,17 +75,30 @@ int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
     }
 }
 
-//void swapCard(int n1, int n2, aCard pack[]) {
-//
-//    int temp;
-//    cardToString(pack[n1]) = temp;
-//    cardToString(pack[0]) = cardToString(pack[1]);
-//    cout << endl << "CARD: " << temp << endl;
-//}
+void swapCard(int n1, int n2, aCard pack[]) {
 
+    int temp = n1;
+    pack[n1] = pack[temp];
+    pack[n1] = pack[n2];
+    pack[n2] = pack[temp];
+}
 
+void bubbleSort(aCard pack[], int numOfCards) {
 
-const int maxCard = 5;
+    int i, j;
+
+    for (i = 0; i <= numOfCards - 2; i++)
+    {
+        for (j = i + 1; i < numOfCards; j++) {
+            if (compareCard(pack[i], pack[j]) == -1) {
+                swapCard(i, j, pack);
+            }
+
+        }
+    }
+}
+
+const int maxCard = 10;
 
 aCard thePack[maxCard];
 
@@ -105,13 +111,9 @@ int main(){
 
     printPack("deck", thePack, maxCard);
 
-    //compareCard(thePack[0], thePack[1]);
-
-    cardToString(thePack[0]) = cardToString(thePack[1]);
-    cout << "CARD: " << cardToString(thePack[0]);
-
+    bubbleSort(thePack, maxCard);
+    
     
 
-    
 }
 
