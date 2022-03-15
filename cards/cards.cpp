@@ -40,13 +40,23 @@ void printPack(string mess, aCard pack[], int numOfCard) {
     string result = mess + ": ";
     string card;
 
-    for (int i = numOfCard -1; i > 0; i--) {
-
+    for (int i = 0; i < numOfCard; i++)
+    {
         card = cardToString(pack[i]);
-        if (i>1) result += card + ", ";
+        result += card;
+        if (i < numOfCard - 1) result += ", ";
     }
 
     cout << result << endl;
+
+   /* for (int i = numOfCard-1; i > 0; i--) {
+
+        card = cardToString(pack[i]);
+        result += card;
+        if (i>1) result +=  ", ";
+    }
+
+    cout << result << endl;*/
 }
 
 int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
@@ -72,17 +82,36 @@ int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
     }
 }
 
+//void swapCard(int n1, int n2, aCard pack[]) {
+//
+//    int temp;
+//    cardToString(pack[n1]) = temp;
+//    cardToString(pack[0]) = cardToString(pack[1]);
+//    cout << endl << "CARD: " << temp << endl;
+//}
 
-const int maxCard = 6;
+
+
+const int maxCard = 5;
 
 aCard thePack[maxCard];
+
 
 int main(){
     
     
     for (int ct = 0; ct < maxCard; ct++)
-        thePack[ct] = getCard("28014355");
+        thePack[ct] = getCard("28014385");
 
     printPack("deck", thePack, maxCard);
+
+    //compareCard(thePack[0], thePack[1]);
+
+    cardToString(thePack[0]) = cardToString(thePack[1]);
+    cout << "CARD: " << cardToString(thePack[0]);
+
+    
+
+    
 }
 
