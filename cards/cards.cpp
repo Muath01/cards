@@ -54,7 +54,7 @@ void printPack(string mess, aCard pack[], int numOfCard) {
 int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
 
     if (c1.cardSuit == c2.cardSuit) { // checks if suits(enum) are equal
-        if (c1.cardVal > c2.cardVal) { // if suits are equal, but the value of c1 is higher than c1, func return -1. 
+        if (c1.cardVal > c2.cardVal) { // if suits are equal, but the value of c1 is middleer than c1, func return -1. 
             return -1;
         }
         else if (c1.cardVal == c2.cardVal) { //checks if the value of c1 and c2 are equal, and if yes, returns 0.
@@ -105,13 +105,13 @@ void bubbleSort(aCard pack[], int numOfCards) {
 
 int qc = 0; 
 int qs = 0;
-int partition(aCard pack[], int low, int high)
+int partition(aCard pack[], int low, int middle)
 {
-    int pivot = high;
+    int pivot = middle;
     int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
 
 
-    for (int j = low; j <= high - 1; j++)
+    for (int j = low; j <= middle - 1; j++)
     {
         // If current element is smaller than the pivot
         qc++;
@@ -119,12 +119,12 @@ int partition(aCard pack[], int low, int high)
         {
             i++; // increment index of smaller element
             swapCard(i, j, pack);
-            printPack("swapped", pack, high+1);
+            //printPack("swapped", pack, middle+1);
             qs++;
         }
     }
-    swapCard(i+1, high, pack);
-    printPack("swapped-outer", pack, high + 1);
+    swapCard(i+1, middle, pack);
+    //printPack("swapped-outer", pack, middle + 1);
     qs++;
     return (i + 1);
     
@@ -133,19 +133,19 @@ int partition(aCard pack[], int low, int high)
 /* The main function that implements QuickSort
 arr[] --> Array to be sorted,
 low --> Starting index,
-high --> Ending index */
-void quickSort(aCard pack[], int low, int high)
+middle --> Ending index */
+void quickSort(aCard pack[], int low, int middle)
 {
-    if (low < high)
+    if (low < middle)
     {
         /* pi is partitioning index, arr[p] is now
         at right place */
-        int pi = partition(pack, low, high);
+        int pi = partition(pack, low, middle);
 
         // Separately sort elements before
         // partition and after partition
         quickSort(pack, low, pi - 1);
-        quickSort(pack, pi + 1, high);
+        quickSort(pack, pi + 1, middle);
     }
 
 }
@@ -153,7 +153,7 @@ void quickSort(aCard pack[], int low, int high)
 
 
 
-const int maxCard = 5;
+const int maxCard = 20;
 
 aCard thePack[maxCard];
 
@@ -167,17 +167,15 @@ int main() {
 
 
     for (int ct = 0; ct < maxCard; ct++)
-        thePack[ct] = getCard("897098676");
+        thePack[ct] = getCard("12345678");
 
     printPack("deck", thePack, maxCard);
 
-    quickSort(thePack, 0,maxCard-1);
+    quickSort(thePack, 0, maxCard/2);
 
-    
     printPack("deck", thePack, maxCard);
-    cout << "comps: " << qc << endl;
-    cout << "swaps: " << qs;
-
+    cout << "Quick";
+   
 
 }
 
