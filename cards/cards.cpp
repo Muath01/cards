@@ -1,7 +1,6 @@
 #include <iostream>
 #include "cardlib.h"
-#include <vector>
-#include <algorithm>
+
 using namespace std;
 
 aCard getCard(string stdno)
@@ -49,7 +48,7 @@ void printPack(string mess, aCard pack[], int numOfCard) {
 
     cout << result << endl;
 
-  
+
 }
 
 int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
@@ -61,13 +60,13 @@ int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
         else if (c1.cardVal == c2.cardVal) { //checks if the value of c1 and c2 are equal, and if yes, returns 0.
             return 0;
         }
-        else{ // Only one case is left, which is if c2 value is bigger than c1
+        else { // Only one case is left, which is if c2 value is bigger than c1
             return 1; // if yes, it return 1. 
         }
     }
     else { // If the suits are different, then the two cards can never be equal. 
         if (c1.cardSuit > c2.cardSuit) {//checks the value of suit in the enum, and if c1 suit is bigger it return -1. 
-            return -1; 
+            return -1;
         }
         else { // Becuase they can't be equal, else means c2's suit's is bigger than c1's, if so, it returns 1. 
             return 1;
@@ -77,43 +76,108 @@ int compareCard(aCard c1, aCard c2) { //card 1(c1) and card 2(c2)
 
 void swapCard(int n1, int n2, aCard pack[]) {
 
-    int temp = n1;
-    pack[n1] = pack[temp];
+    aCard temp = pack[n1];
+
+    temp = pack[n1];
     pack[n1] = pack[n2];
-    pack[n2] = pack[temp];
+    pack[n2] = temp;
+    
 }
 
 void bubbleSort(aCard pack[], int numOfCards) {
 
-    int i, j;
+    int i, j, c = 0, s = 0;
 
     for (i = 0; i <= numOfCards - 2; i++)
     {
-        for (j = i + 1; i < numOfCards; j++) {
-            if (compareCard(pack[i], pack[j]) == -1) {
-                swapCard(i, j, pack);
+        for (j = numOfCards - 2; j >=i; j--) {
+            c++;
+            if (compareCard(pack[j], pack[j+1]) == -1) {
+                swapCard(j, j+1, pack);
+             
+                s++;
             }
-
-        }
+        } 
     }
+    cout << "comparissions: " << c << endl;
+    cout << "Swaps: " << s << endl;
 }
 
-const int maxCard = 10;
+int qc = 0; 
+int qs = 0;
+int partition(aCard pack[], int low, int high)
+{
+    int pivot = high;
+    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        // If current element is smaller than the pivot
+        qc++;
+        if (compareCard(pack[j], pack[pivot]) == 1)
+        {
+            i++; // increment index of smaller element
+            swapCard(i, j, pack);
+            printPack("swapped", pack, high+1);
+            qs++;
+        }
+    }
+    swapCard(i+1, high, pack);
+    printPack("swapped-outer", pack, high + 1);
+    qs++;
+    return (i + 1);
+    
+}
+
+/* The main function that implements QuickSort
+arr[] --> Array to be sorted,
+low --> Starting index,
+high --> Ending index */
+void quickSort(aCard pack[], int low, int high)
+{
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[p] is now
+        at right place */
+        int pi = partition(pack, low, high);
+
+        // Separately sort elements before
+        // partition and after partition
+        quickSort(pack, low, pi - 1);
+        quickSort(pack, pi + 1, high);
+    }
+
+}
+
+
+
+
+const int maxCard = 5;
 
 aCard thePack[maxCard];
 
 
-int main(){
-    
-    
+
+
+// H < C < D < S
+
+
+int main() {
+
+
     for (int ct = 0; ct < maxCard; ct++)
-        thePack[ct] = getCard("28014385");
+        thePack[ct] = getCard("897098676");
 
     printPack("deck", thePack, maxCard);
 
-    bubbleSort(thePack, maxCard);
+    quickSort(thePack, 0,maxCard-1);
+
     
-    
+    printPack("deck", thePack, maxCard);
+    cout << "comps: " << qc << endl;
+    cout << "swaps: " << qs;
+
 
 }
 
