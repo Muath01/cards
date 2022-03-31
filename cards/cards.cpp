@@ -169,12 +169,12 @@ int main() {
     for (int ct = 0; ct < maxCard; ct++)
         thePack[ct] = getCard("12345678");
 
-    printPack("deck", thePack, maxCard);
+    printPack("unsorted", thePack, maxCard);
 
     quickSort(thePack, 0, maxCard/2);
 
-    printPack("deck", thePack, maxCard);
-    cout << "Quick";
+    printPack("Bubble sorted", thePack, maxCard);
+    
    
 
 }
